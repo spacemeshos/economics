@@ -40,20 +40,13 @@ jobs:
         base_image: raspios_lite_arm64:latest
         image_additional_mb: 1024
         commands: |
-          echo "First invocation"
           #apt-get install --no-install-recommends -y golang
-          #go build -v ./...
-          #go test -v ./...
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: ${{ env.go-version }}
-    - uses: pguyot/arm-runner-action@v2.5.2
-      with:
-        base_image: raspios_lite_arm64:latest
-        image_additional_mb: 1024
-        commands: |
-          #apt-get install --no-install-recommends -y golang
+          #wget https://go.dev/dl/go1.19.5.darwin-arm64.tar.gz
+          #tar -xvf go1.19.5.darwin-arm64.tar.gz
+          #sudo mv go /usr/local
+          #/usr/local/go/bin/go build -v ./...
+          #/usr/local/go/bin/go test -v ./...
+          sudo snap install --classic --channel=${{ env.go-version }}/stable go
           go build -v ./...
           go test -v ./...
 
