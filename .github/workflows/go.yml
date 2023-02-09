@@ -41,6 +41,7 @@ jobs:
         image_additional_mb: 1024
         commands: |
           #apt-get install --no-install-recommends -y golang
+          apt-get install --no-install-recommends -y snapd
           #wget https://go.dev/dl/go1.19.5.darwin-arm64.tar.gz
           #tar -xvf go1.19.5.darwin-arm64.tar.gz
           #sudo mv go /usr/local
