@@ -53,7 +53,7 @@ jobs:
         base_image: raspios_lite_arm64:latest
         image_additional_mb: 1024
         commands: |
-          apt-get install --no-install-recommends -y golang
+          #apt-get install --no-install-recommends -y golang
           go build -v ./...
           go test -v ./...
 
