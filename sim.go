@@ -27,14 +27,15 @@ func main() {
 	flag.Parse()
 
 	currentDate, tickInterval, endLayer := getParams()
-	log.Printf("genesis date is %s\n", currentDate)
-	log.Printf("tick interval is %d\n", tickInterval)
+	log.Printf("effective genesis is %s\n", currentDate)
+	log.Printf("tick interval is %d layers\n", tickInterval)
 	log.Printf("last layer is %d\n", endLayer)
 
 	t := table.NewWriter()
 	t.SetOutputMirror(os.Stdout)
 	t.AppendHeader(table.Row{
 		"layer",
+		"epoch",
 		"date",
 		"vaultNewVest",
 		"vaultTotalVest",
@@ -50,18 +51,22 @@ func main() {
 		"pctFinalIssuance",
 	})
 	t.SetColumnConfigs([]table.ColumnConfig{
-		{Number: 3, Align: text.AlignRight},
 		{Number: 4, Align: text.AlignRight},
 		{Number: 5, Align: text.AlignRight},
-		{Number: 7, Align: text.AlignRight},
+		{Number: 6, Align: text.AlignRight},
 		{Number: 8, Align: text.AlignRight},
 		{Number: 9, Align: text.AlignRight},
 		{Number: 10, Align: text.AlignRight},
 		{Number: 11, Align: text.AlignRight},
-		{Number: 13, Align: text.AlignRight},
+		{Number: 12, Align: text.AlignRight},
 		{Number: 14, Align: text.AlignRight},
+		{Number: 15, Align: text.AlignRight},
 	})
-	t.SetCaption("all figures in SMESH (rounded down)")
+	t.SetCaption("Please note:\n" +
+		"- All figures in SMESH (rounded down)\n" +
+		"- No coins are issued until effective genesis, two epochs post-genesis\n" +
+		"- Dates are accurate, layer and epoch numbers count from effective genesis\n" +
+		"- Figures represent maximum issuance (and do not account for empty layers)\n")
 
 	p := message.NewPrinter(language.English)
 
@@ -113,6 +118,7 @@ func main() {
 		if layerID%tickInterval == 0 || layerID == endLayer {
 			t.AppendRow(table.Row{
 				layerID,
+				layerID / constants.OneEpoch,
 				currentDate.Format("2006-01-02"),
 				p.Sprintf("%7d", vaultNewVest/constants.OneSmesh),
 				p.Sprintf("%11d", vaultVested/constants.OneSmesh),
@@ -139,8 +145,8 @@ func main() {
 }
 
 const (
-	defaultGenesisDateStr = "20230811"
-	defaultTickInterval   = 2016
+	defaultGenesisDateStr = "20230811"         // Actual mainnet effective genesis
+	defaultTickInterval   = constants.OneEpoch // One mainnet epoch
 	defaultEndLayer       = 10 * constants.OneYear
 )
 
@@ -169,7 +175,7 @@ func getParams() (time.Time, uint32, uint32) {
 		genesisDate, _ = time.Parse("20060102", genesisDateStr)
 	}
 
-	defaultTickIntervalStr := fmt.Sprintf("%d (one week)", defaultTickInterval)
+	defaultTickIntervalStr := fmt.Sprintf("%d (one epoch/two weeks)", defaultTickInterval)
 	var tickInterval int
 	if tickIntervalStr, err := ui.Ask("layer tick interval", &input.Options{
 		Default:   defaultTickIntervalStr,
