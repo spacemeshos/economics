@@ -26,7 +26,7 @@ func main() {
 	// parse flags
 	flag.Parse()
 
-	oneLayer, _ := time.ParseDuration("5m")
+	oneLayer := 5 * time.Minute
 
 	currentDate, tickInterval, endLayer := getParams()
 	log.Printf("genesis is %s\n", currentDate)
