@@ -27,6 +27,7 @@ jobs:
       with:
         check-latest: true
         go-version-file: "go.mod"
+        cache: ${{ runner.arch != 'arm64' }}
     - name: Build
       run: go build -v ./...
     - name: Test
