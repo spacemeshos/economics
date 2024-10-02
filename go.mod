@@ -1,9 +1,9 @@
 module github.com/spacemeshos/economics
 
-go 1.20
+go 1.23.2
 
 require (
-	github.com/ericlagergren/decimal v0.0.0-20221120152707-495c53812d05
+	github.com/ericlagergren/decimal v0.0.0-20240411145413-00de7ca16731
 	github.com/jedib0t/go-pretty/v6 v6.5.9
 	github.com/stretchr/testify v1.9.0
 	github.com/tcnksm/go-input v0.0.0-20180404061846-548a7d7a8ee8
@@ -17,9 +17,9 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
-	golang.org/x/crypto v0.17.0 // indirect
-	golang.org/x/sys v0.17.0 // indirect
-	golang.org/x/term v0.17.0 // indirect
+	golang.org/x/crypto v0.27.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/term v0.24.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
