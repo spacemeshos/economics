@@ -4,7 +4,7 @@ go 1.23.2
 
 require (
 	github.com/ericlagergren/decimal v0.0.0-20240411145413-00de7ca16731
-	github.com/jedib0t/go-pretty/v6 v6.6.2
+	github.com/jedib0t/go-pretty/v6 v6.6.3
 	github.com/stretchr/testify v1.10.0
 	github.com/tcnksm/go-input v0.0.0-20180404061846-548a7d7a8ee8
 	golang.org/x/text v0.20.0
